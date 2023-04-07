@@ -1,0 +1,58 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    Всі, безумовно, чули про азбуку Морзе, класичне кодування тексту в бінарні символи, канонічно позначені крапками та тире. Однак це кодування технічно потрійне, оскільки пробіл між двома літерами насправді є окремим символом, аналогічним тому, як пробіл між словами, які ти зараз читаєш, є символами так само, як і ті, що є видимими. Без пробілів, що розділяють окремі кодові слова, повідомлення теоретично можна розшифрувати по різному.
+</p>
+
+<p style="text-align: justify;">
+    Твоя функція отримує <b>message</b> повідомлення без пробілів і літери <b>letters</b>, кодування яких створює це повідомлення <b>message</b>. Твоя функція повинна порахувати, скільки різних перестановок цих <b>letters</b> створять саме те повідомлення <b>message</b>. Всі літери в <b>letters</b> унікальні. Мають бути використані всі літери і всі символи. 
+</p>
+
+
+
+<!-- <p style="text-align: center;">
+  <img title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Вхідні дані:</strong> Два аргументи:  закодоване повідомлення Морзе як рядок, послідовність букв як рядок.
+</p>
+
+<p>
+    <strong>Вихідні дані:</strong> Кількість перестановок як ціле числа. 
+</p>
+
+
+<p>
+    <strong>Приклади:</strong>
+</p>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<p>
+    <i>
+        Ця місія взята з курсу CCPS 109 Computer Science I, версія від 21 грудня 2022 року, авторства <a target="_blank" href="https://github.com/ikokkari">Ilkka Kokkarinen</a>.
+    </i>
+</p>
+
+<details>
+    <summary><i>Агов...Натисни тут, щоб отримати невелику підказку від автора, якщо тобі це потрібно.</i></summary>
+    <p>
+        Одним із способів вирішення є використання рекурсії в поєднанні із <b>@lru_cache</b>, щоб уникнути повторного перетворення однакових частин.
+    </p>
+</details>
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<!-- <p>
+    <strong>Preconditions:</strong>
+    <ul>
+    <li><i>both given ints should be between -1000 and 1000</i></li>
+    </ul>
+</p> -->

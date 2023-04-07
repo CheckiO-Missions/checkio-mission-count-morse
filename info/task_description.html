@@ -1,0 +1,58 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    Everyone and their brother has surely heard of Morse codes, the classic encoding of text into binary symbols canonically denoted with dots and dashes. However, this coding is technically ternary since the pause between two letters is really a separate symbol, analogous to how whitespace between the words you are now reading are characters just the same as those with visible glyphs. Without the pauses separating the individual codewords, the same message could theoretically be decoded in exponentially many different ways. 
+</p>
+
+<p style="text-align: justify;">
+    Your function receives the <b>message</b> without pauses along with the <b>letters</b> whose encoding originally produced that <b>message</b>. Your function should count how many different permutations of those <b>letters</b> produce that exact same <b>message</b>. Each individual character is guaranteed to appear in letters at most once, all symbols and letters must be used. 
+</p>
+
+
+
+<!-- <p style="text-align: center;">
+  <img title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Input:</strong> Two arguments: Morse encoded message as string, letters sequence as string.
+</p>
+
+<p>
+    <strong>Output:</strong> Number of permutations as integer. 
+</p>
+
+
+<p>
+    <strong>Examples:</strong>
+</p>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<p>
+    <i>
+        This task is taken from the course CCPS 109 Computer Science I, Version of December 21, 2022, as taught by <a target="_blank" href="https://github.com/ikokkari">Ilkka Kokkarinen</a>.
+    </i>
+</p>
+
+<details>
+    <summary><i>Hey, pss! Click here to get a small hint from the author, if you need it.</i></summary>
+    <p>
+        One of the way of solving is to use recursion, aided by a tasty serving of some <b>@lru_cache</b> magic to prevent your recursion from redundantly exploring identical subproblems multiple times.
+    </p>
+</details>
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<!-- <p>
+    <strong>Preconditions:</strong>
+    <ul>
+    <li><i>both given ints should be between -1000 and 1000</i></li>
+    </ul>
+</p> -->

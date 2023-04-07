@@ -1,0 +1,34 @@
+{% comment %}New initial code template{% endcomment %}
+{% block env %}import assert from "assert";{% endblock env %}
+
+{% block start %}
+const D = {
+    'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..', 'e': '.',
+    'f': '..-.', 'g': '--.', 'h': '....', 'i': '..', 'j': '.---',
+    'k': '-.-', 'l': '.-..', 'm': '--', 'n': '-.', 'o': '---',
+    'p': '.--.', 'q': '--.-', 'r': '.-.', 's': '...', 't': '-',
+    'u': '..-', 'v': '...-', 'w': '.--', 'x': '-..-', 'y': '-.--', 'z': '--..',
+};
+
+
+function countMorse(message: string, letters: string): number {
+    // your code here
+    return 0;
+}
+{% endblock start %}
+
+{% block example %}
+console.log('Example:');
+console.log(countMorse("-------.", "omg"));
+{% endblock %}
+
+// These "asserts" are used for self-checking
+{% block tests %}
+{% for t in tests %}
+assert.strictEqual({% block call %}countMorse({{t.input|j_args}})
+{% endblock %}, {% block result %}{{t.answer|j}}{% endblock %});{% endfor %}
+{% endblock %}
+
+{% block final %}
+console.log("Coding complete? Click 'Check Solution' to earn rewards!");
+{% endblock final %}
