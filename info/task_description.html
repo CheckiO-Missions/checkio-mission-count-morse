@@ -16,11 +16,11 @@
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input:</strong> Two arguments: Morse encoded message as string, letters sequence as string.
+    <strong>Input:</strong> Two arguments: Morse encoded message and letters sequence as strings <span translate="no">(str{% if is_js %}ing{% endif %})</span>.
 </p>
 
 <p>
-    <strong>Output:</strong> Number of permutations as integer. 
+    <strong>Output:</strong> Number of permutations as integer <span translate="no">({% if is_js %}number{% else %}int{% endif %})</span>. 
 </p>
 
 
@@ -39,9 +39,9 @@
 <!-- Here you can explain some constraints for input-->
 <!-- The section is optional -->
 <p>
-    <strong>Preconditions:</strong>
+    <strong>Precondition:</strong>
     <ul>
-    <li><i>len(set(letters) == len(letters)</i></li>
+    <li><i>len(set(letters)) == len(letters)</i></li>
     </ul>
 </p>
 
