@@ -1,0 +1,163 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        I have no idea how to start solving this mission.
+    </div>
+    <div class="answer">
+        <p>
+            Catch an idea 💡! To create a queue of variants as tuples of message and letters. Pop each variant from the queue and create a list of characters from the letters, Morse equivalent of which may be the first block of symbols in message. For each character from the list, create a new tuple of message without this first block of symbols and letters without that current character. If message and letters are empty in a particular tuple, increment the counter of successful permutations, otherwise (if both present), add each new tuple into queue.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, what should I start from?
+    </div>
+    <div class="answer">
+        <p>
+            Let's declare a variable for counting successful permutations and starting <b class="code">queue</b> as a list with your initial <b class="code">message</b> and <b class="code">letters</b> tuple.
+        </p>
+        <pre class="brush: python">
+res, queue = 0, [(message, letters)]
+        </pre>
+        <p>
+            You need to do operations, until the <b class="code">queue</b> become empty. Handle it with <b class="code">while</b> loop.
+        </p>
+        <pre class="brush: python">
+while queue:
+    ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, what to do next with the queue?
+    </div>
+    <div class="answer">
+        <p>
+            Now you need to remove a variant from queue, let it be a very first one, with <a target="_blank" href="https://www.w3schools.com/python/ref_list_pop.asp">list.pop()</a> method and unpack the tuple into two variables - one for current message, the other for current list of characters.
+        </p>
+        <pre class="brush: python">
+m, l = queue.pop(0)
+        </pre>
+        <p>
+            According to the strategy, you need to select characters from <b class="code">l</b>, from one of which (Morse version) the <b class="code">m</b> may starts. Use <a target="_blank" href="https://www.w3schools.com/python/python_lists_comprehension.asp">list comprehension</a>, <b class="code">for</b> loop, given dictionary keys and <a target="_blank" href="https://www.w3schools.com/python/ref_string_startswith.asp">str.startswith()</a> method.  
+        </p>
+        <pre class="brush: python">
+poss = [char for char in l if m.startswith(D[char])]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I still need a hint.
+    </div>
+    <div class="answer">
+        <p>
+            Now you need to perform some operations for every selected character in <b class="code">poss</b>.
+        </p>
+        <pre class="brush: python">
+for char in poss:
+    ...
+        </pre>
+        <p>
+            As given idea shows, for every selected character you need to create a variant of message <b class="code">m</b> without Morse equivalent of the current <b class="code">char</b> at the beginning. Use <a target="_blank" href="https://www.geeksforgeeks.org/python-string-removeprefix-function/">str.removeprefix()</a> method and Morse equivalent.
+        </p>
+        <pre class="brush: python">
+m1 = m.removeprefix(D[char])
+        </pre>
+        <p>
+            You also need to create a variant of letters <b class="code">l</b> without current character <b class="code">char</b>. Do it with <a target="_blank" href="https://www.w3schools.com/python/ref_string_replace.asp">str.replace()</a> method. 
+        </p>
+        <pre class="brush: python">
+l1 = l.replace(char, "")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        How to analyze objects I've created?
+    </div>
+    <div class="answer">
+        <p>
+            If both <b class="code">m1, l1</b> become empty, it means, you have found a successful permutation and need to increment a counter <b class="code">res</b>. Check this, using <a target="_blank" href="https://www.w3schools.com/python/ref_func_any.asp">any()</a> function and <b class="code">if</b> statement:
+        </p>
+        <pre class="brush: python">
+if not any((m1, l1)):
+    res += 1
+        </pre>
+        <p>
+            If both still present, you just need to add a tuple of these values into <b class="code">queue</b>. Check this, using <a target="_blank" href="https://www.w3schools.com/python/ref_func_all.asp">all()</a> function.
+        </p>
+        <pre class="brush: python">
+elif all((m1, l1)):
+    queue.append((m1, l1))
+        </pre>
+        <p>
+            If one is empty and the other is not - this permutation is wrong and can't be used, so you just ignore such case.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        So, how my final solution should look like?
+    </div>
+    <div class="answer">
+        <p>
+            You just need to join all previous hints, return your counter at the end and wrap your code into function expression. Using type hints for input and output data are highly recommended.
+        </p>
+        <p>Here is the whole solution:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def count_morse(message: str, letters: str) -> int:
+
+    res, queue = 0, [(message, letters)]
+    while queue:
+        m, l = queue.pop(0)
+        poss = [char for char in l if m.startswith(D[char])]
+        for char in poss:
+            m1 = m.removeprefix(D[char])
+            l1 = l.replace(char, "")
+            if not any((m1, l1)):
+                res += 1
+            elif all((m1, l1)):
+                queue.append((m1, l1))
+
+    return res
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Show me more solutions!<br />
+        'Cause I wanna be a real 🥇 Python Ninnjaa!
+    </div>
+    <div class="answer">
+        <p>Sure, grab it!</p>
+        <p>
+            This solution uses the same methods, but also uses a recursion, which makes the solution more compact, but less transparent and controlled (for bigger tasks).
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def count_morse(mes: str, let: str) -> int:
+
+    if not any((mes, let)):
+        return 1
+
+    return sum(count_morse(mes.removeprefix(D[s]), let.replace(s, ''))
+               for s in let if mes.startswith(D[s]))
+        </pre>
+        </div>
+        <p>Click <b>Best Solutions</b> at mission menu and see a lot of other interesting solutions!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Thanks! I know and understand more now! Everything works fine!
+    </div>
+    <div class="answer">
+        Glad to hear it 👍!
+    </div>
+</div>
+</body>
