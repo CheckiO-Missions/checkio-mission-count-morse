@@ -80,18 +80,13 @@ l1 = l.replace(char, "")
     </div>
     <div class="answer">
         <p>
-            If both <b class="code">m1, l1</b> become empty, it means, you have found a successful permutation and need to increment a counter <b class="code">res</b>. Check this, using <a target="_blank" href="https://www.w3schools.com/python/ref_func_any.asp">any()</a> function and <b class="code">if</b> statement:
+            If both <b class="code">m1, l1</b> become empty, it means, you have found a successful permutation and need to increment a counter <b class="code">res</b>. If both still present, you just need to add a tuple of these values into <b class="code">queue</b>.
+            Use <a target="_blank" href="https://learnpython.com/blog/python-match-case-statement/">match/case</a> statement and <a target="_blank" href="https://www.w3schools.com/python/ref_func_bool.asp">bool()</a> function.
         </p>
         <pre class="brush: python">
-if not any((m1, l1)):
-    res += 1
-        </pre>
-        <p>
-            If both still present, you just need to add a tuple of these values into <b class="code">queue</b>. Check this, using <a target="_blank" href="https://www.w3schools.com/python/ref_func_all.asp">all()</a> function.
-        </p>
-        <pre class="brush: python">
-elif all((m1, l1)):
-    queue.append((m1, l1))
+match bool(m1), bool(l1):
+    case False, False: res += 1
+    case True, True: queue.append((m1, l1))
         </pre>
         <p>
             If one is empty and the other is not - this permutation is wrong and can't be used, so you just ignore such case.
@@ -118,10 +113,9 @@ def count_morse(message: str, letters: str) -> int:
         for char in poss:
             m1 = m.removeprefix(D[char])
             l1 = l.replace(char, "")
-            if not any((m1, l1)):
-                res += 1
-            elif all((m1, l1)):
-                queue.append((m1, l1))
+            match bool(m1), bool(l1):
+                case False, False: res += 1
+                case True, True: queue.append((m1, l1))
 
     return res
         </pre>
