@@ -1,0 +1,59 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    每个人和他们的兄弟肯定都听说过摩尔斯电码，这是一种将文字编码成二进制符号的经典编码方式，通常用点和破折号表示。然而，从技术上讲，这种编码是三元编码，因为两个字母之间的停顿实际上是一个单独的符号，这就好比你现在读到的单词之间的空白是字符，与那些有可见字形的字符是一样的。如果没有这些停顿来分隔单个的编码词，理论上，同一信息可以用指数级的多种不同方式解码。 
+</p>
+
+<p style="text-align: justify;">
+    您的函数接收到没有停顿的<b>message</b> 以及最初产生该<b>message</b> 的编码的<b>letters</b> 。您的函数应该计算这些<b>letters</b> 有多少种不同的排列方式会产生完全相同的<b>message</b> 。保证每个字符在字母中最多出现一次，必须使用所有符号和字母。 
+</p>
+
+
+
+<!-- <p style="text-align: center;">
+  <img title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+   <strong>输入：</strong>两个参数：莫尔斯编码信息和字符串形式的字母序列 <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+<p>
+   <strong>输出结果</strong>以整数表示的排列次数 <span>({% if is_js %}number{% else %}int{% endif %})</span>. 
+</p>
+
+
+<p>
+    <strong>例子</strong>
+</p>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>前提条件：</strong>
+    <ul>
+    <li><i>len(set(letters)) == len(letters)</i></li>
+    </ul>
+</p>
+
+<p>
+    <i>
+        本任务摘自课程 CCPS 109 Computer Science I，2022 年 12 月 21 日版本，授课人：<a target="_blank" href="https://github.com/ikokkari">Ilkka Kokkarinen</a> 。
+    </i>
+</p>
+
+<details>
+    <summary><i>嘿，pss！如果需要，点击这里获取作者的小提示。</i></summary>
+    <p>
+        解决方法之一是使用递归，并辅以一些美味的<b>@lru_cache</b> 魔法，以防止你的递归多次冗余地探索相同的子问题。
+    </p>
+</details>
