@@ -1,0 +1,157 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        我不知道如何开始解决这个任务。
+    </div>
+    <div class="answer">
+        <p>
+            给你个主意💡！创建一个变体队列，作为信息和字母的元组。从队列中弹出每个变体，并从字母中创建一个字符列表，其中的莫尔斯等价物可能是信息中的第一组符号。对于列表中的每个字符，创建一个新的信息元组，其中不包含第一个符号块，也不包含当前字符。如果某个元组中的信息和字母都是空的，则递增成功排列的计数器，否则（如果都存在），将每个新元组添加到队列中。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        好吧，我应该从什么开始呢？
+    </div>
+    <div class="answer">
+        <p>
+            让我们声明一个用于计算成功排列次数的变量，并将<b class="code">queue</b> 作为包含初始<b class="code">message</b> 和<b class="code">letters</b> 元组的列表。
+        </p>
+        <pre class="brush: python">
+res, queue = 0, [(message, letters)]
+        </pre>
+        <p>
+            您需要进行操作，直到<b class="code">queue</b> 变为空。使用<b class="code">while</b> 循环处理。
+        </p>
+        <pre class="brush: python">
+while queue:
+    ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        好了，接下来该如何处理队列？
+    </div>
+    <div class="answer">
+        <p>
+            现在，你需要用<a target="_blank" href="https://www.w3schools.com/python/ref_list_pop.asp">list.pop()</a> 方法从队列中移除一个变量，让它成为第一个变量，然后将元组解包为两个变量--一个表示当前消息，另一个表示当前字符列表。
+        </p>
+        <pre class="brush: python">
+m, l = queue.pop(0)
+        </pre>
+        <p>
+            根据策略，您需要从<b class="code">l</b> 中选择字符，<b class="code">m</b> 可能从其中一个字符（莫尔斯版本）开始。使用<a target="_blank" href="https://www.w3schools.com/python/python_lists_comprehension.asp">list comprehension</a> 、<b class="code">for</b> 循环、给定字典键和<a target="_blank" href="https://www.w3schools.com/python/ref_string_startswith.asp">str.startswith()</a> 方法。  
+        </p>
+        <pre class="brush: python">
+poss = [char for char in l if m.startswith(D[char])]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我还需要提示。
+    </div>
+    <div class="answer">
+        <p>
+            现在，您需要对<b class="code">poss</b> 中的每个选定字符执行一些操作。
+        </p>
+        <pre class="brush: python">
+for char in poss:
+    ...
+        </pre>
+        <p>
+            如给出的想法所示，对于每个选定的字符，您都需要创建一个信息<b class="code">m</b> 的变体，其开头不包含当前<b class="code">char</b> 的莫尔斯等价物。使用<a target="_blank" href="https://www.geeksforgeeks.org/python-string-removeprefix-function/">str.removeprefix()</a> 方法和摩尔斯等价物。
+        </p>
+        <pre class="brush: python">
+m1 = m.removeprefix(D[char])
+        </pre>
+        <p>
+            您还需要创建一个不含当前字符<b class="code">char</b> 的字母<b class="code">l</b> 的变体。请使用<a target="_blank" href="https://www.w3schools.com/python/ref_string_replace.asp">str.replace()</a> 方法。 
+        </p>
+        <pre class="brush: python">
+l1 = l.replace(char, "")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        如何分析我创建的对象？
+    </div>
+    <div class="answer">
+        <p>
+            如果<b class="code">m1, l1</b> 都变为空值，说明你找到了一个成功的排列，需要递增一个计数器<b class="code">res</b> 。如果两个值都仍然存在，则只需将这些值的元组添加到<b class="code">queue</b> 中。
+            使用<a target="_blank" href="https://learnpython.com/blog/python-match-case-statement/">match/case</a> 语句和<a target="_blank" href="https://www.w3schools.com/python/ref_func_bool.asp">bool()</a> 函数。
+        </p>
+        <pre class="brush: python">
+match bool(m1), bool(l1):
+    case False, False: res += 1
+    case True, True: queue.append((m1, l1))
+        </pre>
+        <p>
+            如果其中一个为空，而另一个不为空，则表示该排列是错误的，不能使用，因此可以忽略这种情况。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        那么，我的最终解决方案应该是怎样的呢？
+    </div>
+    <div class="answer">
+        <p>
+            您只需将之前的所有提示连接起来，在最后返回计数器，并将代码封装为函数表达式。强烈建议对输入和输出数据使用类型提示。
+        </p>
+        <p>下面是整个解决方案：</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def count_morse(message: str, letters: str) -> int:
+
+    res, queue = 0, [(message, letters)]
+    while queue:
+        m, l = queue.pop(0)
+        poss = [char for char in l if m.startswith(D[char])]
+        for char in poss:
+            m1 = m.removeprefix(D[char])
+            l1 = l.replace(char, "")
+            match bool(m1), bool(l1):
+                case False, False: res += 1
+                case True, True: queue.append((m1, l1))
+
+    return res
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        告诉我更多解决方案！<br />
+        因为我想成为一个真正的 🥇 Python Ninnjaa！
+    </div>
+    <div class="answer">
+        <p>当然，抓紧时间！</p>
+        <p>
+            这个解决方案使用了相同的方法，但也使用了递归，这使得解决方案更紧凑，但透明度和可控性较低（对于较大的任务）。
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def count_morse(mes: str, let: str) -> int:
+
+    if not any((mes, let)):
+        return 1
+
+    return sum(count_morse(mes.removeprefix(D[s]), let.replace(s, ''))
+               for s in let if mes.startswith(D[s]))
+        </pre>
+        </div>
+        <p>点击任务菜单<b>Best Solutions</b> ，查看更多其他有趣的解决方案！</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        谢谢！我现在知道并理解得更多了！一切正常！
+    </div>
+    <div class="answer">
+        很高兴听到这个消息 👍！
+    </div>
+</div>
+</body>
