@@ -1,0 +1,59 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    Tout le monde et son frère ont certainement entendu parler des codes Morse, le codage classique du texte en symboles binaires désignés canoniquement par des points et des tirets. Toutefois, ce codage est techniquement ternaire puisque la pause entre deux lettres est en réalité un symbole distinct, de la même manière que les espaces blancs entre les mots que vous êtes en train de lire sont des caractères au même titre que ceux dont les glyphes sont visibles. Sans les pauses séparant les différents mots codés, le même message pourrait théoriquement être décodé d'un nombre exponentiel de façons différentes. 
+</p>
+
+<p style="text-align: justify;">
+    Votre fonction reçoit le <b>message</b> sans pauses ainsi que le <b>letters</b> dont l'encodage a produit à l'origine le <b>message</b>. Votre fonction doit compter combien de permutations différentes de ces <b>letters</b> produisent exactement le même <b>message</b>. Chaque caractère individuel est garanti d'apparaître dans les lettres au maximum une fois, tous les symboles et toutes les lettres doivent être utilisés. 
+</p>
+
+
+
+<!-- <p style="text-align: center;">
+  <img title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Entrée:</strong> Deux arguments: Message codé en morse et séquence de lettres sous forme de chaînes de caractères <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Résultat:</strong> Nombre de permutations sous forme de nombre entier <span>({% if is_js %}number{% else %}int{% endif %})</span>. 
+</p>
+
+
+<p>
+    <strong>Exemples:</strong>
+</p>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Condition préalable:</strong>
+    <ul>
+    <li><i>len(set(letters)) == len(letters)</i></li>
+    </ul>
+</p>
+
+<p>
+    <i>
+        Cette tâche est extraite du cours CCPS 109 Computer Science I, Version du 21 décembre 2022, enseigné par <a target="_blank" href="https://github.com/ikokkari">Ilkka Kokkarinen</a>.
+    </i>
+</p>
+
+<details>
+    <summary><i>Hé, pss! Cliquez ici pour obtenir un petit conseil de l'auteur, si vous en avez besoin.</i></summary>
+    <p>
+        L'une des façons de résoudre le problème est d'utiliser la récursivité, aidée par une savoureuse portion de magie <b>@lru_cache</b> pour éviter que votre récursion n'explore plusieurs fois de façon redondante des sous-problèmes identiques.
+    </p>
+</details>
