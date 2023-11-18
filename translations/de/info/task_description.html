@@ -1,0 +1,59 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    Jeder hat sicher schon einmal vom Morsealphabet gehört, der klassischen Kodierung von Text in binäre Symbole, die kanonisch mit Punkten und Strichen dargestellt werden. Diese Kodierung ist jedoch technisch gesehen ternär, da die Pause zwischen zwei Buchstaben eigentlich ein separates Symbol ist, so wie die Leerzeichen zwischen den Wörtern, die Sie gerade lesen, genauso Zeichen sind wie die mit sichtbaren Glyphen. Ohne die Pausen zwischen den einzelnen Codewörtern könnte dieselbe Nachricht theoretisch auf exponentiell viele verschiedene Arten decodiert werden. 
+</p>
+
+<p style="text-align: justify;">
+    Ihre Funktion empfängt die <b>message</b> ohne Pausen zusammen mit der <b>letters</b>, deren Kodierung ursprünglich diese <b>message</b> erzeugte. Ihre Funktion sollte zählen, wie viele verschiedene Permutationen dieser <b>letters</b> genau dieselbe <b>message</b> ergeben. Jedes einzelne Zeichen darf garantiert höchstens einmal in Buchstaben vorkommen, alle Symbole und Buchstaben müssen verwendet werden. 
+</p>
+
+
+
+<!-- <p style="text-align: center;">
+  <img title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Eingabe:</strong> Zwei Argumente: Morsekodierte Nachricht und Buchstabenfolge als Strings <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Ausgabe:</strong> Anzahl der Permutationen als Ganzzahl <span>({% if is_js %}number{% else %}int{% endif %})</span>. 
+</p>
+
+
+<p>
+    <strong>Beispiele:</strong>
+</p>
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<!-- <p class="for_info_only">
+    <strong>How it’s used:</strong>
+    <i>(math is used everywhere)</i>
+</p> -->
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Vorbedingung:</strong>
+    <ul>
+    <li><i>len(set(Buchstaben)) == len(Buchstaben)</i></li>
+    </ul>
+</p>
+
+<p>
+    <i>
+        Diese Aufgabe stammt aus dem Kurs CCPS 109 Computer Science I, Version vom 21. Dezember 2022, der von <a target="_blank" href="https://github.com/ikokkari">Ilkka Kokkarinen</a> unterrichtet wird.
+    </i>
+</p>
+
+<details>
+    <summary><i>Hey, pss! Klicken Sie hier, um einen kleinen Hinweis des Autors zu erhalten, falls Sie ihn benötigen.</i></summary>
+    <p>
+        Eine der Lösungsmöglichkeiten ist die Verwendung von Rekursion, unterstützt durch eine leckere Portion <b>@lru_cache</b> Magie, um zu verhindern, dass Ihre Rekursion identische Teilprobleme mehrfach erforscht.
+    </p>
+</details>
