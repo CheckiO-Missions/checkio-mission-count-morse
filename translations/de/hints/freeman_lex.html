@@ -1,0 +1,157 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Ich habe keine Ahnung, wie ich mit der Lösung dieser Aufgabe beginnen soll.
+    </div>
+    <div class="answer">
+        <p>
+            Fangen Sie eine Idee 💡! Erstellen Sie eine Warteschlange von Varianten als Tupel aus Nachricht und Buchstaben. Nehmen Sie jede Variante aus der Warteschlange und erstellen Sie eine Liste von Zeichen aus den Buchstaben, deren Morse-Äquivalent der erste Block von Symbolen in der Nachricht sein kann. Für jedes Zeichen aus der Liste erstellen Sie ein neues Tupel aus Nachricht ohne diesen ersten Block von Symbolen und Buchstaben ohne das aktuelle Zeichen. Wenn Nachricht und Buchstaben in einem bestimmten Tupel leer sind, erhöhen Sie den Zähler der erfolgreichen Permutationen, andernfalls (wenn beide vorhanden sind), fügen Sie jedes neue Tupel in die Warteschlange ein.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, womit soll ich anfangen?
+    </div>
+    <div class="answer">
+        <p>
+            Lassen Sie uns eine Variable zum Zählen der erfolgreichen Permutationen deklarieren und <b class="code">queue</b> als Liste mit Ihrem anfänglichen <b class="code">message</b> und <b class="code">letters</b> Tupel beginnen.
+        </p>
+        <pre class="brush: python">
+res, queue = 0, [(message, letters)]
+        </pre>
+        <p>
+            Sie müssen so lange Operationen durchführen, bis <b class="code">queue</b> leer ist. Behandeln Sie dies mit der <b class="code">while</b> Schleife.
+        </p>
+        <pre class="brush: python">
+while queue:
+    ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, was tun Sie als nächstes mit der Warteschlange?
+    </div>
+    <div class="answer">
+        <p>
+            Jetzt müssen Sie mit der Methode <a target="_blank" href="https://www.w3schools.com/python/ref_list_pop.asp">list.pop()</a> eine Variante aus der Warteschlange entfernen, und zwar die allererste, und das Tupel in zwei Variablen entpacken - eine für die aktuelle Nachricht, die andere für die aktuelle Liste der Zeichen.
+        </p>
+        <pre class="brush: python">
+m, l = queue.pop(0)
+        </pre>
+        <p>
+            Je nach Strategie müssen Sie Zeichen aus <b class="code">l</b> auswählen, von denen (in der Morseversion) <b class="code">m</b> beginnen kann. Verwenden Sie <a target="_blank" href="https://www.w3schools.com/python/python_lists_comprehension.asp">list comprehension</a>, <b class="code">for</b> Schleife, gegebene Wörterbuchschlüssel und <a target="_blank" href="https://www.w3schools.com/python/ref_string_startswith.asp">str.startswith()</a> Methode.  
+        </p>
+        <pre class="brush: python">
+poss = [char for char in l if m.startswith(D[char])]
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ich brauche noch einen Hinweis.
+    </div>
+    <div class="answer">
+        <p>
+            Jetzt müssen Sie einige Operationen für jedes ausgewählte Zeichen in <b class="code">poss</b> durchführen.
+        </p>
+        <pre class="brush: python">
+for char in poss:
+    ...
+        </pre>
+        <p>
+            Wie das Beispiel zeigt, müssen Sie für jedes ausgewählte Zeichen eine Variante der Nachricht <b class="code">m</b> ohne das Morse-Äquivalent des aktuellen <b class="code">char</b> am Anfang erstellen. Verwenden Sie die Methode <a target="_blank" href="https://www.geeksforgeeks.org/python-string-removeprefix-function/">str.removeprefix()</a> und das Morse-Äquivalent.
+        </p>
+        <pre class="brush: python">
+m1 = m.removeprefix(D[char])
+        </pre>
+        <p>
+            Sie müssen auch eine Variante der Buchstaben <b class="code">l</b> ohne das aktuelle Zeichen <b class="code">char</b> erstellen. Verwenden Sie dazu die Methode <a target="_blank" href="https://www.w3schools.com/python/ref_string_replace.asp">str.replace()</a>. 
+        </p>
+        <pre class="brush: python">
+l1 = l.replace(char, "")
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie kann ich die von mir erstellten Objekte analysieren?
+    </div>
+    <div class="answer">
+        <p>
+            Wenn beide <b class="code">m1, l1</b> leer werden, bedeutet dies, dass Sie eine erfolgreiche Permutation gefunden haben und einen Zähler <b class="code">res</b> inkrementieren müssen. Wenn beide noch vorhanden sind, müssen Sie nur ein Tupel dieser Werte in <b class="code">queue</b> einfügen.
+            Verwenden Sie die Anweisung <a target="_blank" href="https://learnpython.com/blog/python-match-case-statement/">match/case</a> und die Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_bool.asp">bool()</a>.
+        </p>
+        <pre class="brush: python">
+match bool(m1), bool(l1):
+    case False, False: res += 1
+    case True, True: queue.append((m1, l1))
+        </pre>
+        <p>
+            Wenn einer der beiden Werte leer ist und der andere nicht, ist diese Permutation falsch und kann nicht verwendet werden, also ignorieren Sie diesen Fall.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie sollte also meine endgültige Lösung aussehen?
+    </div>
+    <div class="answer">
+        <p>
+            Sie müssen nur alle vorherigen Hinweise zusammenführen, Ihren Zähler am Ende zurückgeben und Ihren Code in einen Funktionsausdruck verpacken. Die Verwendung von Typ-Hinweisen für Eingabe- und Ausgabedaten wird dringend empfohlen.
+        </p>
+        <p>Hier ist die gesamte Lösung:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def count_morse(message: str, letters: str) -> int:
+
+    res, queue = 0, [(message, letters)]
+    while queue:
+        m, l = queue.pop(0)
+        poss = [char for char in l if m.startswith(D[char])]
+        for char in poss:
+            m1 = m.removeprefix(D[char])
+            l1 = l.replace(char, "")
+            match bool(m1), bool(l1):
+                case False, False: res += 1
+                case True, True: queue.append((m1, l1))
+
+    return res
+        </pre>
+        </div>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Zeigen Sie mir mehr Lösungen!<br />
+        denn ich möchte ein echter 🥇 Python Ninnjaa sein!
+    </div>
+    <div class="answer">
+        <p>Klar, schnapp sie dir!</p>
+        <p>
+            Diese Lösung nutzt dieselben Methoden, verwendet aber zusätzlich eine Rekursion, die die Lösung kompakter, aber weniger transparent und kontrolliert (für größere Aufgaben) macht.
+        </p>
+        <div class="spoiler">
+        <pre class="brush: python">
+def count_morse(mes: str, let: str) -> int:
+
+    if not any((mes, let)):
+        return 1
+
+    return sum(count_morse(mes.removeprefix(D[s]), let.replace(s, ''))
+               for s in let if mes.startswith(D[s]))
+        </pre>
+        </div>
+        <p>Klicken Sie auf <b>Best Solutions</b> im Menü Mission und sehen Sie sich viele andere interessante Lösungen an!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Vielen Dank! Ich weiß und verstehe jetzt mehr! Alles funktioniert bestens!
+    </div>
+    <div class="answer">
+        Freut mich zu hören 👍!
+    </div>
+</div>
+</body>
